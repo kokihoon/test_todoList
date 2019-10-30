@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ListComponent from "./components/ListComponent";
+import FormDialog from "./components/FormDialog";
+import EditDialog from "./components/EditDialog";
+import SimpleAppBar from "./components/SimpleAppBar";
+import { OPEN_FORM } from "./constants/action-types";
+import store from "./store/index";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+window.store = store;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+function AppComponent() {
+  const openDialog = () => {
+    store.dispatch({
+      type: OPEN_FORM
+    });
+  };
+
+    return (
+      <div>
+        <SimpleAppBar />
+        <ListComponent />
+
+        <FormDialog />
+        <EditDialog />
+
+        <Button
+          variant="fab"
+          style={{
+            position: "absolute",
+            bottom: 10,
+            right: 10
+          }}
+          onClick={openDialog}
+          color="secondary"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <AddIcon />
+        </Button>
+      </div>
+    );
 }
 
-export default App;
+export default AppComponent;
